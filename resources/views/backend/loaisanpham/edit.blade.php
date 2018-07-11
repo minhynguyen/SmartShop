@@ -32,14 +32,7 @@
           </div>
 
 
-          <div class="form-group">
-                <label>Hãng Sản Xuất</label>
-                <select class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" name="hsx_ma", id="hsx_ma">
-                  @foreach($dshsx as $hsx)
-                    <option value="{{$hsx->hsx_ma}}" <?php echo ($hsx->hsx_ma == $lsp->hsx_ma) ? 'selected' : ''  ?>>{{$hsx->hsx_ten}}</option>
-                  @endforeach
-                </select>
-          </div>
+          
           
 
           <div class="form-group">

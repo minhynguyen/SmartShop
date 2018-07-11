@@ -17,10 +17,10 @@ class LoaiSanPhamController extends Controller
      */
     public function index()
     {
-        // $dslsp = LoaiSanPham::all();
-        $dslsp = DB::table('LoaiSanPham')->join('HangSanXuat', 'LoaiSanPham.hsx_ma', '=', 'HangSanXuat.hsx_ma')->get();
-        $dshsx = DB::table('HangSanXuat')->where('hsx_trangthai','2')->get();
-        return view('backend.loaisanpham.index')->with('dslsp',$dslsp)->with('dshsx',$dshsx);
+        $dslsp = LoaiSanPham::all();
+        // $dslsp = DB::table('LoaiSanPham')->join('HangSanXuat', 'LoaiSanPham.hsx_ma', '=', 'HangSanXuat.hsx_ma')->get();
+        // $dshsx = DB::table('HangSanXuat')->where('hsx_trangthai','2')->get();
+        return view('backend.loaisanpham.index')->with('dslsp',$dslsp);
     }
 
     /**
@@ -30,8 +30,8 @@ class LoaiSanPhamController extends Controller
      */
     public function create()
     {
-        $dshsx = DB::table('HangSanXuat')->where('hsx_trangthai','2')->get();
-        return view('backend.loaisanpham.create')->with('dshsx',$dshsx);
+        // $dshsx = DB::table('HangSanXuat')->where('hsx_trangthai','2')->get();
+        return view('backend.loaisanpham.create');
     }
 
     /**
@@ -45,7 +45,6 @@ class LoaiSanPhamController extends Controller
         try{
         $lsp = new LoaiSanPham();
         $lsp->lsp_ten = $request->lsp_ten;
-        $lsp->hsx_ma = $request->hsx_ma; //trước giống tên cột sau giống tên input ở form nhập liệu
         $lsp->lsp_taomoi = Carbon::now(); //trước giống tên cột sau giống tên input ở form nhập liệu
         $lsp->lsp_capnhat = Carbon::now(); //trước giống tên cột sau giống tên input ở form nhập liệu
         $lsp->lsp_trangthai = $request->lsp_trangthai; //trước giống tên cột sau giống tên input ở form nhập liệu
@@ -80,8 +79,8 @@ class LoaiSanPhamController extends Controller
     public function edit($id)
     {
         $lsp = LoaiSanPham::find($id);
-        $dshsx = DB::table('HangSanXuat')->where('hsx_trangthai','2')->get();
-        return view('backend.loaisanpham.edit')->with('lsp', $lsp)->with('dshsx',$dshsx);
+        // $dshsx = DB::table('HangSanXuat')->where('hsx_trangthai','2')->get();
+        return view('backend.loaisanpham.edit')->with('lsp', $lsp);
     }
 
     /**
@@ -96,7 +95,6 @@ class LoaiSanPhamController extends Controller
         try{
         $lsp = LoaiSanPham::find($id);
         $lsp->lsp_ten = $request->lsp_ten;//trước giống tên cột sau giống tên input ở form nhập liệu
-        $lsp->hsx_ma = $request->hsx_ma;//trước giống tên cột sau giống tên input ở form nhập liệu
         $lsp->lsp_capnhat = Carbon::now(); //trước giống tên cột sau giống tên input ở form nhập liệu
         $lsp->lsp_trangthai = $request->lsp_trangthai; //trước giống tên cột sau giống tên input ở form nhập liệu
         

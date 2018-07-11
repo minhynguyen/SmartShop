@@ -1,16 +1,33 @@
 @extends('backend.layouts.app')   
 
 @section('title')
-  Danh Sách SP
+  Danh Sách Sản Phẩm
 @endsection
 
 
 @section('page-header')
       <h1>
-        Danh Sách SP
-        <small>Danh Sách SP</small>
+        Danh Sách Sản Phẩm
+        <small>Danh Sách Sản Phẩm</small>
       </h1>
 @endsection
+
+@section('css')
+<link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
+<style>
+  a {
+    color: #ffffff !important;
+}
+td{
+  text-align: center; !important;
+}
+
+th{
+  text-align: center; !important;
+}
+</style>
+@endsection
+
 
 
 <!-- noi dung can thay doi o giua -->
@@ -19,9 +36,9 @@
 <!-- <button type="button" class="btn btn-info"> <i class="fa fa-plus"></i> Thêm màu mới</button> -->
 <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Danh Sách Các SP</h3>
+              <h3 class="box-title">Danh Sách Sản Phẩm</h3>
 
-              <div class="box-tools">
+              <!-- <div class="box-tools">
                 <div class="input-group input-group-sm" style="width: 150px;">
                   <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
 
@@ -29,40 +46,40 @@
                     <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
                   </div>
                 </div>
-              </div>
+              </div> -->
             </div>
             <!-- /.box-header -->
             <div class="box-body table-responsive no-padding">
               <table class="table table-hover text-center">
                 <tr>
-                  <th>Ma</th>
-                  <th>Ten</th>
-                  <th>gia goc</th>
-                  <th>gia ban</th>
-                  <th>hinh</th>
-                  <th>thong tin</th>
-                  <th>danh gia</th>
-                  <th>Tao Moi</th>
-                  <th>Cap Nhat</th>
-                  <th>Trang Thai</th>
-                  <th>loai</th>
+                  <th>STT</th>
+                  <th>Tên SP</th>
+                  <th>Loại SP</th>
+                  <th>HSX</th>
+                  <th>Giá Gốc</th>
+                  <th>Giá Bán</th>
+                  <th>Tạo Mới</th>
+                  <th>Cập Nhật</th>
+                  <th>Trạng Thái</th>
+                  
                   <th colspan="2"><button type="button" class="btn btn-info"><a href=" {{ route('sanpham.create') }}" > <i class="fa fa-plus"></i> Thêm Sản Phẩm </a></button></th>
                 </tr>
-                @foreach ($dsSanPham as $sp)
+                @foreach ($dssanpham as $sp)
         <!-- nhãn từ controller -->
                 <tr>
-                    <td>{{$sp->sp_ma}}</td>
+                    <td>{{$loop->index + 1}}</td>
                     <td>{{$sp->sp_ten}}</td>
+                    <td>{{$sp->lsp_ten}}</td>
+                    <td>{{$sp->hsx_ten}}</td>
                     <td>{{$sp->sp_giagoc}}</td>
                     <td>{{$sp->sp_giaban}}</td>
-                    <!-- <td>{{$sp->sp_hinh}}</td> -->
-                    <td><img src="{{ asset('upload/' . $sp->sp_hinh)}}" width="50px", height="50px"> </td>
-                    <td>{{$sp->sp_thongtin}}</td>
-                    <td>{{$sp->sp_danhgia}}</td>
                     <td>{{$sp->sp_taomoi}}</td>
                     <td>{{$sp->sp_capnhat}}</td>
-                    <td>{{$sp->sp_trangthai}}</td>
-                    <td>{{$sp->loai -> l_ten}}</td>
+                    @if ($sp->sp_trangthai === 1)
+                        <td style="text-align: center;"><span class="badge bg-yellow">Khóa</span></td>
+                    @else
+                        <td style="text-align: center;"><span class="badge bg-green">Khả Dụng</span></td>
+                    @endif
                      
                     <td>
                       <button type="button" class="btn btn-warning"> <a href=" {{ route('sanpham.edit', ['sanpham' => $sp->sp_ma]) }}" ><i class="fa fa-edit"></i> Edit</a></button>

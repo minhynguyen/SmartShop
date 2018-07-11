@@ -23,18 +23,11 @@
         <div class="box-body">
           <div class="form-group">
 
-            <label for="exampleInputEmail1">TÊN LOẠI</label>
+            <label for="exampleInputEmail1">Tên Loại</label>
             <input type="text" class="form-control" id="exampleInputEmail1" name="lsp_ten" placeholder="Nhập Tên Loại Sản Phẩm">
           </div>
 
-          <div class="form-group">
-                <label>HÃNG SẢN XUẤT</label>
-                <select class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" name="hsx_ma", id="hsx_ma">
-                  @foreach($dshsx as $hsx)
-                    <option value="{{$hsx->hsx_ma}}">{{$hsx->hsx_ten}}</option>
-                  @endforeach
-                </select>
-          </div>
+          
 
           <div class="form-group">
                 <label>Trạng Thái</label>

@@ -19,6 +19,7 @@ Route::group(['prefix'=>'admin'], function(){
 	Route::resource('khachhang', 'KhachHangController');
 	Route::resource('hangsanxuat', 'HangSanXuatController');
 	Route::resource('loaisanpham', 'LoaiSanPhamController');
+	Route::resource('sanpham', 'SanPhamController');
 	
 });
 // Route::get('/admin', function () {

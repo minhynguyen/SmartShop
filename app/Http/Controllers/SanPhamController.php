@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\SanPham;
+use App\HinhAnh;
+use App\HinhAnh_SanPham;
 use DB;
 use Carbon\Carbon;
 
@@ -16,7 +18,10 @@ class SanPhamController extends Controller
      */
     public function index()
     {
-        $dssanpham = SanPham::all();
+        $dssanpham = DB::table('SanPham')
+        ->join('HangSanXuat', 'SanPham.hsx_ma', '=', 'HangSanXuat.hsx_ma')
+        ->join('LoaiSanPham', 'SanPham.lsp_ma', '=', 'LoaiSanPham.lsp_ma')
+        ->get();
         $dslsp = DB::table('LoaiSanPham')->where('lsp_trangthai','2')->get();
         $dshsx = DB::table('HangSanXuat')->where('hsx_trangthai','2')->get();
         return view('backend.sanpham.index')->with('dssanpham',$dssanpham)
@@ -62,7 +67,37 @@ class SanPhamController extends Controller
         $sp->sp_trangthai = $request->sp_trangthai; //trước giống tên cột sau giống tên input ở form nhập liệu
         
         $sp->save();
+        $input=$request->all();
+        $images=array();
+        if($files=$request->file('images')){
+            foreach($files as $file){
+                $hinhanh = new HinhAnh();
+                $name=$file->getClientOriginalName();
+                $file->move('upload',$name);
+                $hinhanh->ha_ten = $name;
+                $images[]=$name;
+                $hinhanh->save();
 
+                $hinhanh_sanpham = new HinhAnh_SanPham();
+                $hinhanh_sanpham->ha_ma = $hinhanh->ha_ma;
+                $hinhanh_sanpham->sp_ma = $sp->sp_ma;
+                $hinhanh_sanpham->save();
+            }
+
+        }
+        else{
+                $hinhanh = new HinhAnh();
+                $hinhanh->ha_ten = 'comingsoon.png';
+                $hinhanh->save();
+
+                $hinhanh_sanpham = new HinhAnh_SanPham();
+                $hinhanh_sanpham->ha_ma = $hinhanh->ha_ma;
+                $hinhanh_sanpham->sp_ma = $sp->sp_ma;
+                $hinhanh_sanpham->save();
+        }
+                
+
+                
         return redirect(route('sanpham.index')); //trả về trang cần hiển thị
         }
         catch(QueryException $ex){

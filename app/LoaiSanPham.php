@@ -10,7 +10,7 @@ class LoaiSanPham extends Model
     const UPDATED_AT ='lsp_capnhat';
     
     protected $table = 'LoaiSanPham';
-    protected $fillable = ['lsp_ten', 'hsx_ma', 'lsp_taomoi', 'lsp_capnhat', 'lsp_trangthai'];
+    protected $fillable = ['lsp_ten', 'lsp_taomoi', 'lsp_capnhat', 'lsp_trangthai'];
     protected $guarded = ['lsp_ma'];
     protected $primaryKey = 'lsp_ma';
     protected $dates =['lsp_taomoi', 'lsp_capnhat'];
